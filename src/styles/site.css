@@ -1,0 +1,141 @@
+@font-face{font-family:Inter;src:url('/assets/inter.woff2') format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:Nunito;src:url('/assets/nunito.ttf') format('truetype');font-weight:200 1000;font-display:swap}
+
+:root{
+  /* Taken from the app: Mochi's coral and ink, on a warm black. */
+  --night:#110d0e;--night-2:#1b1517;
+  --cream:#f6eee6;--cream-2:#ebe0d6;
+  --coral:#ff8a73;--coral-deep:#f06a5c;
+  --ink:#2a1420;
+  --text:#f6eee6;--muted:#a99d97;--line:rgba(246,238,230,.14);
+  --wrap:1280px;--gutter:clamp(20px,4.5vw,64px);
+  --ease:cubic-bezier(.16,1,.3,1);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  color:var(--text);background:var(--night);
+  font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--night);overflow-x:clip}
+body:has(dialog[open]){overflow:hidden}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--coral);outline-offset:4px;border-radius:6px}
+::selection{background:var(--coral);color:var(--ink)}
+[hidden]{display:none!important}
+.wrap{width:min(100% - var(--gutter)*2,var(--wrap));margin-inline:auto}
+.skip-link{position:fixed;top:12px;left:12px;z-index:200;background:var(--cream);color:var(--ink);padding:10px 16px;border-radius:8px;transform:translateY(-200%)}
+.skip-link:focus{transform:none}
+
+/* Type: Nunito Black is Mochi's voice in the app. */
+.display{font-family:Nunito,Inter,sans-serif;font-weight:900;letter-spacing:-.035em;line-height:.92}
+h2.display{font-size:clamp(52px,8.6vw,132px)}
+.hl{color:var(--coral)}
+.textlink{font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px;text-decoration-color:var(--coral);transition:text-decoration-color .2s}
+.textlink:hover{text-decoration-color:currentColor}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;height:58px;padding:0 30px;border-radius:999px;font-family:Nunito,Inter,sans-serif;font-size:18px;font-weight:900;letter-spacing:-.01em;white-space:nowrap;transition:transform .35s var(--ease),background .2s}
+.btn:hover{transform:translateY(-3px) rotate(-1deg)}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn--coral{background:var(--coral);color:var(--ink)}
+.btn--coral:hover{background:#ff9b87}
+.btn--ink{background:var(--ink);color:var(--cream)}
+.btn--sm{height:42px;padding:0 20px;font-size:15px}
+
+/* Header */
+.brand{display:inline-flex;align-items:center;gap:10px;font-family:Nunito,Inter,sans-serif;font-size:24px;font-weight:900;letter-spacing:-.04em}
+.brand img{border-radius:50%}
+.brand i{font-style:normal;color:var(--coral)}
+.header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.header--solid{background:var(--night);border-color:var(--line)}
+.header__bar{display:flex;align-items:center;gap:32px;height:76px}
+.header__nav{display:flex;gap:28px;margin-left:auto}
+.header__nav a{font-size:15px;font-weight:500;color:var(--muted);transition:color .2s}
+.header__nav a:hover{color:var(--text)}
+.header__menu{display:none;margin-left:auto;width:44px;height:44px;place-items:center}
+.mobile-nav{padding:8px var(--gutter) 24px;background:var(--night);border-bottom:1px solid var(--line)}
+.mobile-nav a{display:block;padding:14px 0;font-family:Nunito,Inter,sans-serif;font-size:34px;font-weight:900;letter-spacing:-.03em;border-bottom:1px solid var(--line)}
+.mobile-nav a:last-child{color:var(--coral);border:0}
+
+/* Phone */
+.phone{position:relative;width:300px;padding:10px;border-radius:52px;background:#1d1d20;box-shadow:inset 0 0 0 1.5px #3b3b40,inset 0 0 0 4px #0b0b0c,0 40px 80px -30px rgba(0,0,0,.6)}
+.phone__screen{position:relative;display:flex;flex-direction:column;width:100%;aspect-ratio:640/1387;overflow:hidden;border-radius:43px;background:#000;container-type:inline-size}
+.phone__status{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;height:13cqw;padding:0 9cqw 0 11cqw;font-size:4.6cqw;font-weight:600;color:#fff}
+.phone__bars{display:flex;align-items:flex-end;gap:1cqw}
+.phone__bars i{width:1.2cqw;background:#fff;border-radius:1px}
+.phone__bars i:nth-child(1){height:1.8cqw}.phone__bars i:nth-child(2){height:2.6cqw}.phone__bars i:nth-child(3){height:3.4cqw}
+.phone__bars b{width:6cqw;height:3cqw;margin-left:1.4cqw;border-radius:1cqw;background:#fff}
+.phone__island{position:absolute;top:3cqw;left:50%;width:30%;height:8.5cqw;transform:translateX(-50%);border-radius:5cqw;background:#000;box-shadow:0 0 0 1px #111}
+.phone__screen img{flex:1;min-height:0;width:100%;object-fit:cover;object-position:top}
+.phone__btn{position:absolute;width:3px;border-radius:3px;background:#2c2c31}
+.phone__btn--l{left:-2px;top:22%;height:9%}
+.phone__btn--r{right:-2px;top:28%;height:13%}
+.phone__inspect{position:absolute;bottom:22px;left:50%;transform:translate(-50%,8px);display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:var(--cream);color:var(--ink);font-size:12px;font-weight:700;opacity:0;transition:all .3s var(--ease)}
+.phone:hover .phone__inspect,.phone__inspect:focus-visible{opacity:1;transform:translate(-50%,0)}
+
+/* Mochi */
+.mochi{display:block;overflow:visible}
+.mochi__breathe{animation:breathe 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.mochi--cheer .mochi__bounce{animation:hop .55s cubic-bezier(.3,0,.4,1) infinite alternate}
+.mochi--thinking .mochi__tilt{transform:rotate(4deg)}
+.mochi--sleepy .mochi__tilt{transform:rotate(-5.7deg)}
+.mochi__face{transform:translate(var(--gx,0),var(--gy,0));transition:transform .25s ease-out}
+.mochi__eye{animation:blink 4.6s infinite;transform-box:fill-box;transform-origin:center}
+.mochi--talking .mochi__arm--right{animation:wave .5s ease-in-out infinite alternate}
+.mochi--talking .mochi__mouth{animation:talk .28s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 0}
+.mochi__shadow{transform-box:fill-box;transform-origin:center}
+.mochi--cheer .mochi__shadow{animation:shadow .55s cubic-bezier(.3,0,.4,1) infinite alternate}
+.mochi__dot{animation:dot 1s ease-in-out infinite}
+.mochi__z{animation:zz 1.8s ease-in-out infinite;opacity:0}
+.mochi__sparkle{animation:spark 1.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes breathe{0%,100%{transform:scale(1.02,.98)}50%{transform:scale(.98,1.02)}}
+@keyframes hop{from{transform:translateY(0)}to{transform:translateY(-16px)}}
+@keyframes shadow{to{transform:scale(.8);opacity:.6}}
+@keyframes blink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+@keyframes wave{from{transform:rotate(-35deg)}to{transform:rotate(-80deg)}}
+@keyframes talk{from{transform:scaleY(.55)}to{transform:scaleY(1)}}
+@keyframes dot{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(-10px);opacity:1}}
+@keyframes zz{0%{opacity:0;transform:translate(0,8px)}50%{opacity:.85}100%{opacity:0;transform:translate(12px,-14px)}}
+@keyframes spark{0%,100%{transform:scale(0);opacity:0}50%{transform:scale(1);opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+
+/* Preloader: a coral sheet that lifts away. */
+.preloader{position:fixed;inset:0;z-index:150;display:grid;place-items:center;background:var(--coral);transition:transform .7s var(--ease)}
+.preloader--leaving{transform:translateY(-100%)}
+
+/* Dialogs */
+.viewer,.availability-dialog{border:0;border-radius:24px;background:var(--cream);color:var(--ink);padding:24px;max-height:92vh}
+.viewer::backdrop,.availability-dialog::backdrop{background:rgba(17,13,14,.85)}
+.viewer{width:min(440px,94vw)}
+.viewer__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.viewer__head h2{font-family:Nunito,Inter,sans-serif;font-weight:900;font-size:26px;letter-spacing:-.03em}
+.viewer__head .eyebrow{display:none}
+.viewer__img{width:100%;border-radius:18px}
+.viewer__note{margin-top:12px;font-size:12px;color:#7a6a64;text-align:center}
+.icon-btn{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;background:rgba(42,20,32,.08)}
+.availability-dialog{width:min(420px,92vw);text-align:center;padding:40px 28px 28px}
+.availability-dialog img{margin:0 auto 16px;border-radius:50%}
+.availability-dialog .eyebrow{font-size:13px;font-weight:600;color:var(--coral-deep)}
+.availability-dialog h2{margin:8px 0 12px;font-family:Nunito,Inter,sans-serif;font-weight:900;font-size:32px;letter-spacing:-.03em}
+.availability-dialog p{color:#6f605a;line-height:1.6;margin-bottom:24px}
+.availability-dialog .btn{background:var(--ink);color:var(--cream)}
+.dialog-close{position:absolute;top:14px;right:14px}
+
+/* Store badges */
+.store-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.store-badge{display:block;border-radius:10px;transition:transform .3s var(--ease)}
+.store-badge:hover{transform:translateY(-2px)}
+.store-badge img{height:48px;width:auto}
+
+@media (max-width:900px){
+  .header__nav,.header__cta{display:none}
+  .header__menu{display:inline-grid}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}

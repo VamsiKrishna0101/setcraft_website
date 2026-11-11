@@ -1,0 +1,50 @@
+[
+  {
+    "asset": "screens/today.webp",
+    "source": "mobile/build/previews/training-readiness-today.png",
+    "kind": "actual app preview with fixture data",
+    "bytes": 37210
+  },
+  {
+    "asset": "screens/plan.webp",
+    "source": "mobile/build/previews/personal-plan-reveal-male.png",
+    "kind": "actual app preview with fixture data",
+    "bytes": 44978
+  },
+  {
+    "asset": "screens/training.webp",
+    "source": "mobile/build/previews/weekly-plan-day.png",
+    "kind": "actual app preview with fixture data",
+    "bytes": 31422
+  },
+  {
+    "asset": "screens/body.webp",
+    "source": "mobile/build/previews/body-progress.png",
+    "kind": "actual app preview with fixture data",
+    "bytes": 39740
+  },
+  {
+    "asset": "screens/nutrition.webp",
+    "source": "mobile/build/nutrition-preview.png",
+    "kind": "actual app preview with fixture data",
+    "bytes": 27128
+  },
+  {
+    "asset": "screens/progress.webp",
+    "source": "mobile/build/previews/exercise-progress.png",
+    "kind": "actual app preview with fixture data",
+    "bytes": 27858
+  },
+  {
+    "asset": "body-front.webp",
+    "source": "mobile/assets/exercise_anatomy/graphite-atlas-v1.png",
+    "kind": "original Setcraft artwork, cropped for presentation",
+    "bytes": 19330
+  },
+  {
+    "asset": "body-back.webp",
+    "source": "mobile/assets/exercise_anatomy/graphite-atlas-v1.png",
+    "kind": "original Setcraft artwork, cropped for presentation",
+    "bytes": 17744
+  }
+]

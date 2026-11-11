@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 600" fill="none">
+  <defs><linearGradient id="skin" x1="130" y1="110" x2="290" y2="275" gradientUnits="userSpaceOnUse"><stop stop-color="#fafaf4"/><stop offset="1" stop-color="#a1a39e"/></linearGradient><linearGradient id="shirt" x1="130" y1="270" x2="290" y2="440" gradientUnits="userSpaceOnUse"><stop stop-color="#eeeeea"/><stop offset="1" stop-color="#858885"/></linearGradient></defs>
+  <ellipse cx="217" cy="557" rx="100" ry="17" fill="#222"/>
+  <path d="M180 426L173 517M244 426L254 517" stroke="url(#skin)" stroke-width="35" stroke-linecap="round"/>
+  <path d="M174 495L170 524M252 495L256 524" stroke="#ddd" stroke-width="35"/>
+  <ellipse cx="170" cy="539" rx="32" ry="15" fill="#292a2b"/><ellipse cx="260" cy="539" rx="32" ry="15" fill="#292a2b"/>
+  <path d="M140 292L117 372L109 413M283 292L306 358L327 301" stroke="url(#shirt)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="108" cy="417" r="19" fill="url(#skin)"/><circle cx="331" cy="286" r="20" fill="url(#skin)"/>
+  <rect x="144" y="267" width="137" height="156" rx="50" fill="url(#shirt)"/><path d="M213 311V402" stroke="#484a49" stroke-width="3"/>
+  <path d="M164 404H261L268 453H222L214 427L205 453H159Z" fill="#262829"/>
+  <rect x="196" y="237" width="34" height="46" rx="15" fill="url(#skin)"/>
+  <ellipse cx="212" cy="181" rx="76" ry="84" fill="url(#skin)"/>
+  <ellipse cx="136" cy="185" rx="13" ry="23" fill="url(#skin)"/><ellipse cx="288" cy="185" rx="13" ry="23" fill="url(#skin)"/>
+  <path d="M137 173L133 137C132 106 151 89 173 86C188 64 230 72 250 87C286 88 300 116 288 175L278 153L267 132C238 140 217 127 199 113C176 140 156 144 147 140L146 173Z" fill="#292b2d"/>
+  <ellipse cx="186" cy="184" rx="8" ry="13" fill="#17191a"/><ellipse cx="239" cy="184" rx="8" ry="13" fill="#17191a"/>
+  <circle cx="189" cy="180" r="3" fill="#fff"/><circle cx="242" cy="180" r="3" fill="#fff"/>
+  <path d="M176 161L194 158M231 158L249 161" stroke="#3c3e3e" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="213" cy="205" rx="12" ry="9" fill="#bfc0ba"/>
+  <path d="M192 226Q213 251 235 226" stroke="#292b2b" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="213" cy="313" r="20" fill="#262829"/><circle cx="213" cy="313" r="15" stroke="#eee"/>
+  <path d="M220 307L216 303H207L203 307L221 319L217 323H208L204 319" stroke="#eee" stroke-width="2"/>
+</svg>

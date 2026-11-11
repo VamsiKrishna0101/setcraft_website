@@ -1,0 +1,110 @@
+[
+  {
+    "file": "screens/today.webp",
+    "source": "/assets/screens/today.webp",
+    "dimensions": [
+      384,
+      832
+    ],
+    "bytes": 16502
+  },
+  {
+    "file": "screens/plan.webp",
+    "source": "/assets/screens/plan.webp",
+    "dimensions": [
+      384,
+      832
+    ],
+    "bytes": 19326
+  },
+  {
+    "file": "screens/training.webp",
+    "source": "/assets/screens/training.webp",
+    "dimensions": [
+      384,
+      832
+    ],
+    "bytes": 14232
+  },
+  {
+    "file": "screens/body.webp",
+    "source": "/assets/screens/body.webp",
+    "dimensions": [
+      384,
+      832
+    ],
+    "bytes": 17666
+  },
+  {
+    "file": "screens/nutrition.webp",
+    "source": "/assets/screens/nutrition.webp",
+    "dimensions": [
+      384,
+      832
+    ],
+    "bytes": 12020
+  },
+  {
+    "file": "screens/progress.webp",
+    "source": "/assets/screens/progress.webp",
+    "dimensions": [
+      384,
+      832
+    ],
+    "bytes": 12008
+  },
+  {
+    "file": "screens-desktop/today.webp",
+    "source": "/assets/screens/today.webp",
+    "dimensions": [
+      680,
+      1474
+    ],
+    "bytes": 35520
+  },
+  {
+    "file": "screens-desktop/plan.webp",
+    "source": "/assets/screens/plan.webp",
+    "dimensions": [
+      680,
+      1474
+    ],
+    "bytes": 42268
+  },
+  {
+    "file": "screens-desktop/training.webp",
+    "source": "/assets/screens/training.webp",
+    "dimensions": [
+      680,
+      1474
+    ],
+    "bytes": 30342
+  },
+  {
+    "file": "screens-desktop/body.webp",
+    "source": "/assets/screens/body.webp",
+    "dimensions": [
+      680,
+      1474
+    ],
+    "bytes": 37296
+  },
+  {
+    "file": "screens-desktop/nutrition.webp",
+    "source": "/assets/screens/nutrition.webp",
+    "dimensions": [
+      680,
+      1474
+    ],
+    "bytes": 25752
+  },
+  {
+    "file": "screens-desktop/progress.webp",
+    "source": "/assets/screens/progress.webp",
+    "dimensions": [
+      680,
+      1474
+    ],
+    "bytes": 26418
+  }
+]
