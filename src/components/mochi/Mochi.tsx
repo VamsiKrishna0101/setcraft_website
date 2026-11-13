@@ -8,6 +8,8 @@ type MochiProps = {
   talking?: boolean;
   /** Eyes follow the pointer, like Mochi glancing at you. */
   followPointer?: boolean;
+  /** A drawn Mochi with no idle animation. For places that show many at once. */
+  still?: boolean;
   className?: string;
   label?: string;
 };
@@ -16,6 +18,9 @@ type MochiProps = {
  * A faithful SVG port of the app's Mochi painter (mobile/lib/features/onboarding/
  * components/coach_mascot.dart): same proportions, gradient, face and moods.
  * Geometry uses the painter's units with s = 200 and r = .34 s.
+ *
+ * Soft edges are gradients rather than SVG blur filters, and nothing animates
+ * while Mochi is off screen, so a page full of them stays cheap.
  */
 const R = 68;
 const INK = '#2A1420';
@@ -42,7 +47,7 @@ function Star({ x, y, r, color, delay }: { x: number; y: number; r: number; colo
   return <path className="mochi__sparkle" d={d} fill={color} style={{ animationDelay: `${delay}s` }} />;
 }
 
-export function Mochi({ size = 160, mood = 'listening', talking = false, followPointer = false, className = '', label }: MochiProps) {
+export function Mochi({ size = 160, mood = 'listening', talking = false, followPointer = false, still = false, className = '', label }: MochiProps) {
   const id = useId().replace(/:/g, '');
   const ref = useRef<SVGSVGElement>(null);
   const cheering = mood === 'cheer';
@@ -51,23 +56,39 @@ export function Mochi({ size = 160, mood = 'listening', talking = false, followP
 
   useEffect(() => {
     const svg = ref.current;
-    if (!followPointer || !svg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!svg || still) return;
+    let visible = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      svg.classList.toggle('is-off', !visible);
+    }, { rootMargin: '80px' });
+    observer.observe(svg);
+
     let frame = 0;
-    const move = (event: PointerEvent) => {
+    let move: ((event: PointerEvent) => void) | undefined;
+    if (followPointer && window.matchMedia('(hover: hover) and (pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      move = (event: PointerEvent) => {
+        if (!visible || frame) return;
+        const { clientX, clientY } = event;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          const box = svg.getBoundingClientRect();
+          const dx = clientX - (box.left + box.width / 2);
+          const dy = clientY - (box.top + box.height / 2);
+          const length = Math.hypot(dx, dy) || 1;
+          const pull = Math.min(1, length / 500);
+          svg.style.setProperty('--gx', `${((dx / length) * 5.5 * pull).toFixed(1)}px`);
+          svg.style.setProperty('--gy', `${((dy / length) * 4.5 * pull).toFixed(1)}px`);
+        });
+      };
+      window.addEventListener('pointermove', move, { passive: true });
+    }
+    return () => {
+      observer.disconnect();
+      if (move) window.removeEventListener('pointermove', move);
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const box = svg.getBoundingClientRect();
-        const dx = event.clientX - (box.left + box.width / 2);
-        const dy = event.clientY - (box.top + box.height / 2);
-        const length = Math.hypot(dx, dy) || 1;
-        const pull = Math.min(1, length / 500);
-        svg.style.setProperty('--gx', `${((dx / length) * 5.5 * pull).toFixed(2)}px`);
-        svg.style.setProperty('--gy', `${((dy / length) * 4.5 * pull).toFixed(2)}px`);
-      });
     };
-    window.addEventListener('pointermove', move, { passive: true });
-    return () => { window.removeEventListener('pointermove', move); cancelAnimationFrame(frame); };
-  }, [followPointer]);
+  }, [followPointer, still]);
 
   const eye = (x: number) => {
     const cx = x + (thinking ? 4.76 : 0);
@@ -81,49 +102,49 @@ export function Mochi({ size = 160, mood = 'listening', talking = false, followP
     </g>;
   };
   const mouthOpen = cheering || talking;
+  const classes = `mochi mochi--${mood}${talking ? ' mochi--talking' : ''}${still ? ' mochi--still' : ''} ${className}`;
 
-  return <svg ref={ref} className={`mochi mochi--${mood}${talking ? ' mochi--talking' : ''} ${className}`} width={size} height={size} viewBox="0 0 200 200" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : true} overflow="visible">
+  return <svg ref={ref} className={classes} width={size} height={size} viewBox="0 0 200 200" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : true} overflow="visible">
     <defs>
       <radialGradient id={`${id}-body`} gradientUnits="userSpaceOnUse" cx="-26.2" cy="-41.1" r="157">
         <stop offset="0" stopColor="#FFD3C4" /><stop offset=".5" stopColor="#FF9A84" /><stop offset="1" stopColor="#F06A5C" />
       </radialGradient>
-      <filter id={`${id}-soft`} x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" /></filter>
-      <filter id={`${id}-shadow`} x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="4" /></filter>
+      <radialGradient id={`${id}-shine`}><stop offset="0" stopColor="#fff" stopOpacity=".75" /><stop offset="1" stopColor="#fff" stopOpacity="0" /></radialGradient>
+      <radialGradient id={`${id}-blush`}><stop offset="0" stopColor="#FF7E9A" stopOpacity={cheering ? 0.95 : 0.7} /><stop offset="1" stopColor="#FF7E9A" stopOpacity="0" /></radialGradient>
+      <radialGradient id={`${id}-shadow`}><stop offset="0" stopOpacity=".34" style={{ stopColor: 'var(--mochi-shadow, #1b1215)' }} /><stop offset="1" stopOpacity="0" style={{ stopColor: 'var(--mochi-shadow, #1b1215)' }} /></radialGradient>
       <clipPath id={`${id}-mouth`}><path d="M-11.56 14.96Q0 38 11.56 14.96Z" /></clipPath>
     </defs>
-    <ellipse className="mochi__shadow" cx="100" cy="190" rx="52" ry="7" fill="#000" fillOpacity=".45" filter={`url(#${id}-shadow)`} />
+    <ellipse className="mochi__shadow" cx="100" cy="190" rx="62" ry="10" fill={`url(#${id}-shadow)`} />
     <g transform="translate(100 120)">
       <g className="mochi__bounce">
-        <g className="mochi__tilt">
-          <g className="mochi__breathe">
-            {[-1, 1].map(side => <ellipse key={`f${side}`} cx={side * 27.2} cy="58.5" rx="12.9" ry="6.8" fill="#EB5F55" />)}
-            {[-1, 1].map(side => <g key={`a${side}`} transform={`translate(${side * 62.56} 12.24)`}>
-              <g className={side > 0 ? 'mochi__arm mochi__arm--right' : 'mochi__arm'} style={{ transform: `rotate(${side * (cheering ? -70 : 20)}deg)` }}>
-                <ellipse cx={side * 8.16} cy="0" rx="10.2" ry="6.12" fill="#F7826F" />
-              </g>
-            </g>)}
-            <path d={BLOB} fill={`url(#${id}-body)`} />
-            <ellipse cx="-28.56" cy="-35.36" rx="14.28" ry="7.48" fill="#fff" fillOpacity=".55" filter={`url(#${id}-soft)`} />
-            <path d="M-1.36 -57.12Q1.36 -76.16 13.6 -72.08Q4.08 -68 6.8 -57.12Z" fill="#FF9A84" />
-            {[-1, 1].map(side => <ellipse key={`b${side}`} cx={side * 39.44} cy="13.6" rx="8.84" ry="5.1" fill="#FF7E9A" fillOpacity={cheering ? .85 : .6} filter={`url(#${id}-soft)`} />)}
-            <g className="mochi__face">
-              {eye(-20.4)}{eye(20.4)}
-              {thinking ? <ellipse cx="4.08" cy="17.68" rx="3.4" ry="4.08" fill={INK} />
-                : mouthOpen ? <g className="mochi__mouth">
-                  <path d="M-11.56 14.96Q0 38 11.56 14.96Z" fill={INK} />
-                  <ellipse cx="0" cy="27.2" rx="6.8" ry="4.08" fill="#FF6F8E" clipPath={`url(#${id}-mouth)`} />
-                </g>
-                  : <path d="M-6.12 16.32Q0 21.76 6.12 16.32" stroke={INK} strokeWidth="4.08" strokeLinecap="round" fill="none" />}
+        <g key={mood} className="mochi__pop"><g className="mochi__tilt">
+          {[-1, 1].map(side => <ellipse key={`f${side}`} cx={side * 27.2} cy="58.5" rx="12.9" ry="6.8" fill="#EB5F55" />)}
+          {[-1, 1].map(side => <g key={`a${side}`} transform={`translate(${side * 62.56} 12.24)`}>
+            <g className={side > 0 ? 'mochi__arm mochi__arm--right' : 'mochi__arm'} style={{ transform: `rotate(${side * (cheering ? -70 : 20)}deg)` }}>
+              <ellipse cx={side * 8.16} cy="0" rx="10.2" ry="6.12" fill="#F7826F" />
             </g>
+          </g>)}
+          <path d={BLOB} fill={`url(#${id}-body)`} />
+          <ellipse cx="-28.56" cy="-35.36" rx="20" ry="11" fill={`url(#${id}-shine)`} />
+          <path d="M-1.36 -57.12Q1.36 -76.16 13.6 -72.08Q4.08 -68 6.8 -57.12Z" fill="#FF9A84" />
+          {[-1, 1].map(side => <ellipse key={`b${side}`} cx={side * 39.44} cy="13.6" rx="13" ry="8" fill={`url(#${id}-blush)`} />)}
+          <g className="mochi__face">
+            {eye(-20.4)}{eye(20.4)}
+            {thinking ? <ellipse cx="4.08" cy="17.68" rx="3.4" ry="4.08" fill={INK} />
+              : mouthOpen ? <g className="mochi__mouth">
+                <path d="M-11.56 14.96Q0 38 11.56 14.96Z" fill={INK} />
+                <ellipse cx="0" cy="27.2" rx="6.8" ry="4.08" fill="#FF6F8E" clipPath={`url(#${id}-mouth)`} />
+              </g>
+                : <path d="M-6.12 16.32Q0 21.76 6.12 16.32" stroke={INK} strokeWidth="4.08" strokeLinecap="round" fill="none" />}
           </g>
-        </g>
+        </g></g>
       </g>
     </g>
-    {thinking && [0, 1, 2].map(i => <circle key={i} className="mochi__dot" cx={148 + i * 18} cy="36" r="5.6" fill="#fff" style={{ animationDelay: `${i * 0.18}s` }} />)}
-    {sleepy && [0, 1, 2].map(i => <text key={i} className="mochi__z" x={140 + i * 12} y={50 - i * 14} fontFamily="Nunito, sans-serif" fontWeight="800" fontSize={18 + i * 5} fill="#fff" style={{ animationDelay: `${i * 0.6}s` }}>z</text>)}
-    {cheering && [0, 1, 2, 3, 4].map(i => {
+    {thinking && [0, 1, 2].map(i => <circle key={i} className="mochi__dot" cx={148 + i * 18} cy="36" r="5.6" fill="currentColor" style={{ animationDelay: `${i * 0.18}s` }} />)}
+    {sleepy && [0, 1, 2].map(i => <text key={i} className="mochi__z" x={140 + i * 12} y={50 - i * 14} fontFamily="Nunito, sans-serif" fontWeight="800" fontSize={18 + i * 5} fill="currentColor" style={{ animationDelay: `${i * 0.6}s` }}>z</text>)}
+    {cheering && !still && [0, 1, 2, 3, 4].map(i => {
       const angle = -Math.PI / 2 + (i - 2) * 0.55;
-      return <Star key={i} x={100 + Math.cos(angle) * 96} y={104 + Math.sin(angle) * 96} r={7.6} color={['#FFD166', '#fff', '#FF8FA3'][i % 3]} delay={i * 0.17} />;
+      return <Star key={i} x={100 + Math.cos(angle) * 96} y={104 + Math.sin(angle) * 96} r={7.6} color={['#FFD166', '#FF8A73', '#FF8FA3'][i % 3]} delay={i * 0.17} />;
     })}
   </svg>;
 }

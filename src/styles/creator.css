@@ -1,0 +1,71 @@
+/* Creator partner portal: same paper/ink/coral language as the marketing site, quieter. */
+.cp{min-height:100vh;background:var(--paper);color:var(--ink)}
+.cp__top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.cp__tag{margin-left:6px;padding:3px 9px;border-radius:999px;background:var(--chip);font-size:12px;font-weight:500;letter-spacing:0}
+.cp__main{padding-bottom:96px}
+.cp .btn svg{flex:none}
+.cp .btn:disabled{opacity:.55;pointer-events:none}
+
+.cp-card{background:#fbf8f4;border:1px solid var(--line);border-radius:20px;padding:24px}
+.cp-h2{font-size:18px;font-weight:600;letter-spacing:-.02em;margin-bottom:14px}
+.cp-note{font-size:14px;line-height:1.5;color:var(--mute)}
+.cp-error{font-size:14px;color:#a3281a;background:rgba(232,96,79,.12);border-radius:12px;padding:10px 14px}
+
+/* Login */
+.cp-login{max-width:520px;margin:clamp(32px,8vh,96px) auto 0;display:grid;gap:18px}
+.cp-login__title{font-size:clamp(44px,7vw,72px)}
+.cp-form{display:grid;gap:16px;margin-top:8px}
+.cp-form label{display:grid;gap:6px;font-size:14px;font-weight:500}
+.cp-form input{height:50px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:var(--paper);font:inherit;font-size:16px;color:var(--ink)}
+.cp-form input:focus{outline:2px solid var(--coral-deep);outline-offset:1px;border-color:transparent}
+.cp-form .btn{width:100%}
+
+/* Dashboard */
+.cp-state{display:grid;justify-items:start;gap:14px;margin-top:64px}
+.cp-dash{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;margin-top:24px}
+.cp-card,.cp-stat{min-width:0}
+.cp-dash__head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.cp-dash__title{font-size:clamp(40px,6vw,64px);margin-top:8px}
+.cp-codes{display:flex;flex-wrap:wrap;gap:10px}
+.cp-code{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--paper);font-size:14px}
+.cp-code__code{font-weight:700;letter-spacing:.04em;color:var(--coral)}
+.cp-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cp-stat{display:grid;gap:6px;padding:20px;border-radius:20px;border:1px solid var(--line);background:#fbf8f4}
+.cp-stat__value{font-size:clamp(28px,3.4vw,40px);font-weight:600;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.cp-stat__label{font-size:13px;color:var(--mute)}
+
+.cp-earn{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px}
+.cp-calc{display:grid;gap:0;margin:0 0 12px}
+.cp-calc div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.cp-calc dt{color:var(--mute)}
+.cp-calc dd{margin:0;font-variant-numeric:tabular-nums}
+.cp-calc__sub dt,.cp-calc__sub dd{color:var(--ink);font-weight:600}
+.cp-calc__total{border-bottom:0!important}
+.cp-calc__total dt,.cp-calc__total dd{color:var(--ink);font-weight:700;font-size:18px}
+.cp-earn__buckets{display:grid;gap:12px}
+.cp-bucket{display:grid;gap:4px;padding:18px 20px}
+.cp-bucket__value{font-size:26px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.cp-bucket--accent{background:var(--coral);border-color:transparent}
+.cp-bucket--accent .cp-note,.cp-bucket--accent .cp-stat__label{color:rgba(27,18,21,.72)}
+
+.cp-table-wrap{overflow-x:auto;margin-top:8px;-webkit-overflow-scrolling:touch}
+.cp-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.cp-table th{text-align:left;font-weight:500;color:var(--mute);padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.cp-table td{padding:12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.cp-table tr:last-child td{border-bottom:0}
+.cp-pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.cp-pill--ok{background:rgba(46,140,87,.14);color:#1f6b41}
+.cp-pill--wait{background:var(--chip);color:var(--mute)}
+.cp-pill--bad{background:rgba(232,96,79,.14);color:#a3281a}
+
+@media (max-width:860px){
+  .cp-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cp-earn{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:520px){
+  .cp .wrap{width:calc(100% - 32px)}
+  .cp-stats{gap:8px}
+  .cp-stat__value{font-size:26px}
+  .cp-card{padding:18px}
+  .cp-stat{padding:16px}
+}

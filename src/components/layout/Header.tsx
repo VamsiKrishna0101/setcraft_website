@@ -22,7 +22,7 @@ export function Header() {
     <div className="wrap header__bar">
       <Brand />
       <nav className="header__nav" aria-label="Main navigation">{navigation.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}</nav>
-      <a className="btn btn--coral btn--sm header__cta" href="#download">Get the app</a>
+      <a className="btn btn--solid btn--sm header__cta" href="#download"><span className="btn__dot" />Get the app</a>
       <button className="header__menu" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} aria-controls="mobile-nav" onClick={() => setOpen(!open)}>{open ? <X size={22} /> : <Menu size={22} />}</button>
     </div>
     <nav id="mobile-nav" className="mobile-nav" hidden={!open} aria-label="Mobile navigation">

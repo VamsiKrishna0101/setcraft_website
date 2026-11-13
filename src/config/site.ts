@@ -15,4 +15,5 @@ export const navigation = [
   { label: 'Languages', href: '#languages' },
   { label: 'Membership', href: '#membership' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Creators', href: '/creator' },
 ] as const;

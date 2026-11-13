@@ -13,6 +13,7 @@ import { Membership } from './components/sections/Membership';
 import { Faq } from './components/sections/Faq';
 import { Download } from './components/sections/Download';
 import { AvailabilityDialog } from './components/ui/AvailabilityDialog';
+import { Companion } from './components/mochi/Companion';
 import { usePageMotion } from './hooks/usePageMotion';
 
 export function App() {
@@ -36,6 +37,7 @@ export function App() {
       <Download onUnavailable={setDialog} />
     </main>
     <Footer />
+    <Companion />
     <AvailabilityDialog title={dialog} onClose={() => setDialog(null)} />
   </div>;
 }
